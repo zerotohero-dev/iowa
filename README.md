@@ -8,7 +8,7 @@
 (__\_|_)\"_____/   |___/    \___|(___/    \___)
 ```
 
-`iowa` is a **zero-dependency** library that exposes IO utility methods that return a `Prmomise` API.
+`iowa` is a **zero-dependency** library that exposes IO utility methods that return a `Prmomise` API; it is also known as “the land of corn”.
 
 ## About This Repository
 
