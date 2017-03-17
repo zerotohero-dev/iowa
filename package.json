@@ -1,7 +1,7 @@
 {
   "name": "iowa",
   "version": "0.5.0",
-  "description": "iowa is a Promise-based IO Utility.",
+  "description": "iowa: A zero-dependency Promise-based IO Utility; also known as “the land of corn”.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
