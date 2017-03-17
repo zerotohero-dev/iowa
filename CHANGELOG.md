@@ -8,6 +8,10 @@
 (__\_|_)\"_____/   |___/    \___|(___/    \___)
 ```
 
+## **iowa** (*v0.5.2*)
+
+* Added documentation.
+
 ## **iowa** (*v0.5.0*)
 
 * Initial version.
