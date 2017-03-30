@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 #   __      ______    __   __  ___       __
 #  |" \    /    " \  |"  |/  \|  "|     /""\
 #  ||  |  // ____  \ |'  /    \:  |    /    \
@@ -17,4 +15,6 @@
 # Send your comments, suggestions, and feedback to me@volkan.io
 #
 
-jsdoc --destination "./doc" lib/index.js
+language: node_js
+node_js:
+  - "7.8.0"

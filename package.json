@@ -1,13 +1,16 @@
 {
   "name": "iowa",
-  "version": "0.5.2",
-  "description": "iowa: A zero-dependency Promise-based IO Utility; also known as “the land of corn”.",
+  "version": "0.5.3",
+  "description": "iowa: A zero-dependency Promise-based IO utility; also known as “the land of corn”.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "doc": "bin/doc.sh"
+    "test": "bin/test.sh",
+    "lint": "bin/lint.sh",
+    "doc": "bin/doc.sh"    
   },
-  "repository": "git+https://github.com/jsbites/iowa.git",
+  "repository": "git@github.com:jsbites/iowa.git",
+  "author": "Volkan Özçelik <me@volkan.io> (https://volkan.io/)",
+  "license": "MIT",
   "keywords": [
     "iowa",
     "io",
@@ -16,13 +19,13 @@
     "wrapper",
     "promise"
   ],
-  "author": "Volkan Özçelik <me@volkan.io> (https://volkan.io/)",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/jsbites/iowa/issues"
   },
   "homepage": "https://github.com/jsbites/iowa#readme",
   "devDependencies": {
+    "eslint": "^3.18.0",
+    "eslint-config-jsbites": "^0.4.2",
     "http-server": "^0.9.0",
     "jsdoc": "^3.4.3"
   }

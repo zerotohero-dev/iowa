@@ -17,4 +17,20 @@
 # Send your comments, suggestions, and feedback to me@volkan.io
 #
 
-jsdoc --destination "./doc" lib/index.js
+echo "Ain’t nobody has time fo testz."
+
+if [ $? != 0 ]; then
+    echo "Tests failed. — Exiting."
+
+    exit 1
+fi
+
+npm run lint
+
+if [ $? != 0 ]; then
+    echo "Lint failed. — Exiting."
+
+    exit 1
+fi
+
+echo "Everything is awesome!"

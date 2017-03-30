@@ -68,7 +68,7 @@
 
 
 <div class="description">
-    Takes a collection of paths and returns which of those paths do not point to files on the file system
+    Takes a collection of paths and returns which of those paths do not point to files on the filesystem
 (<em>i.e., which of those files are missing</em>).
 </div>
 
@@ -162,7 +162,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line209">line 209</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line216">line 216</a>
     </li></ul></dd>
     
 
@@ -189,8 +189,8 @@
 
         
 <div class="param-desc">
-    A <code>Promise</code> that resolves with an <code>string[]</code> of all the missing paths
-     (<em>which will be a subset of the input array <code>paths</code></em>).
+    A <code>Promise</code> that resolves with a <code>string[]</code> of all the missing
+paths (<em>which will be a subset of the input array <code>paths</code></em>).
 </div>
 
 
@@ -216,168 +216,15 @@
 
     
 
-    <h4 class="name" id="~readBinary"><span class="type-signature">(inner) </span>readBinary<span class="signature">(The)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="~readBinary"><span class="type-signature">(inner) </span>readBinary<span class="signature">(path)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
 
     
 
 
 
 <div class="description">
-    Reads the given file as a binary blob a <code>Promise</code> that resolves with the contents of the file
-(as a <code>Buffer</code>).
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>The</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">path The path to file.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line105">line 105</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    A <code>Promise</code> that resolves with the contents of the file as a <code>Buffer</code>.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="~readFile"><span class="type-signature">(inner) </span>readFile<span class="signature">(path, options)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Reads the given file and returns a <code>Promise</code> that resolves with the contents of the file.
+    Reads the given file at <code>path</code> as a binary blob and returns
+a <code>Promise</code> that resolves with the content of the file as a <code>Buffer</code>.
 </div>
 
 
@@ -429,9 +276,140 @@
 
             
 
-            <td class="description last">The path to file.</td>
+            <td class="description last">The path to the file.</td>
         </tr>
 
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line104">line 104</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    A <code>Promise</code> that resolves with the content of the file as a <code>Buffer</code>.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~readFile"><span class="type-signature">(inner) </span>readFile<span class="signature">(options)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Reads the given file at <code>path</code> and returns a <code>Promise</code> that resolves with the
+content of the file.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
     
 
         <tr>
@@ -504,7 +482,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line68">line 68</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line141">line 141</a>
     </li></ul></dd>
     
 
@@ -531,7 +509,7 @@
 
         
 <div class="param-desc">
-    A <code>Promise</code> that resolves with the contents of the file.
+    A <code>Promise</code> that resolves with the content of the file.
 </div>
 
 
@@ -564,8 +542,9 @@
 
 
 <div class="description">
-    Takes a binary <code>Buffer</code> and writes to the given file and returns a <code>Promise</code>
-that resolves with the written data itself.
+    Takes a binary <code>Buffer</code> (<code>data</code>) and writes it to the given file
+at <code>path</code> and then returns a <code>Promise</code> that resolves with the written data
+itself.
 
 Note that this operation truncates the file and overwrites it with <code>data</code>.
 </div>
@@ -619,7 +598,7 @@ Note that this operation truncates the file and overwrites it with <code>data</c
 
             
 
-            <td class="description last">The path to file.</td>
+            <td class="description last">The path to the file.</td>
         </tr>
 
     
@@ -715,7 +694,7 @@ Note that this operation truncates the file and overwrites it with <code>data</c
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line185">line 185</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line195">line 195</a>
     </li></ul></dd>
     
 
@@ -742,7 +721,7 @@ Note that this operation truncates the file and overwrites it with <code>data</c
 
         
 <div class="param-desc">
-    — a `Promise` that resolves with the contents of the file.
+    A <code>Promise</code> that resolves with the content of the file.
 </div>
 
 
@@ -775,9 +754,10 @@ Note that this operation truncates the file and overwrites it with <code>data</c
 
 
 <div class="description">
-    Writes to the given file and returns a <code>Promise</code> that resolves with the written data itself.
+    Writes to the given file at <code>path</code> and returns a <code>Promise</code> that resolves
+with the written data itself.
 
-Note that this operation truncates the file and overwrites it with `data`.
+Note that this operation truncates the file and overwrites it with <code>data</code>.
 </div>
 
 
@@ -881,9 +861,10 @@ Note that this operation truncates the file and overwrites it with `data`.
      where…
 
      <ul>
-     <li><code>json</code> is a flag to push the data as stringified JSON to the file,</li>
+     <li><code>json</code> is a `boolean` flag that indicates whether the data is written as
+         a stringified <b>JSON</b> to the file,</li>
      <li>And <code>encoding</code> is the output encoding of the file
-        (<em>defaults to <code>"utf8"</code></em>).</li>
+         (<em>defaults to <code>"utf8"</code></em>).</li>
      </ul></td>
         </tr>
 
@@ -925,7 +906,7 @@ Note that this operation truncates the file and overwrites it with `data`.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line146">line 146</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line64">line 64</a>
     </li></ul></dd>
     
 
@@ -952,7 +933,7 @@ Note that this operation truncates the file and overwrites it with `data`.
 
         
 <div class="param-desc">
-    a <code>Promise</code> that resolves with the contents of the file.
+    a <code>Promise</code> that resolves with the content of the file.
 </div>
 
 
@@ -995,7 +976,7 @@ Note that this operation truncates the file and overwrites it with `data`.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Mar 17 2017 18:43:10 GMT+0000 (UTC)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Mar 30 2017 06:22:17 GMT+0000 (UTC)
 </footer>
 
 <script> prettyPrint(); </script>
