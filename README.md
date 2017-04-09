@@ -8,7 +8,7 @@
 (__\_|_)\"_____/   |___/    \___|(___/    \___)
 ```
 
-`iowa` is a library that exposes IO utility methods that return a `Prmomise` API; it is also known as “the land of corn”.
+`iowa` is a library that exposes IO utility methods that return a `Promise` API; it is also known as “the land of corn”.
 
 ## About This Repository
 
