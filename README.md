@@ -8,7 +8,7 @@
 (__\_|_)\"_____/   |___/    \___|(___/    \___)
 ```
 
-`iowa` is a **zero-dependency** library that exposes IO utility methods that return a `Prmomise` API; it is also known as “the land of corn”.
+`iowa` is a library that exposes IO utility methods that return a `Prmomise` API; it is also known as “the land of corn”.
 
 ## About This Repository
 
@@ -34,7 +34,7 @@ It is a compilation of short (*around ten minutes*) monthly screencasts about **
 
 ## About **iowa**
 
-`iowa` is a **zero-dependency** library that exposes IO utility methods that return a `Prmomise` API.
+`iowa` is a library that exposes IO utility methods that return a `Prmomise` API.
 
 It’s currently used in the CI/CD deployment pipeline of [**bytesized.tv.web**](https://github.com/jsbites/bytesized.tv.web).
 
