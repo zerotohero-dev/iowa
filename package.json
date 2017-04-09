@@ -1,7 +1,7 @@
 {
   "name": "iowa",
-  "version": "0.6.0",
-  "description": "iowa: A zero-dependency Promise-based IO utility; also known as “the land of corn”.",
+  "version": "0.6.1",
+  "description": "iowa: A Promise-based IO utility; also known as “the land of corn”.",
   "main": "index.js",
   "scripts": {
     "test": "bin/test.sh",
