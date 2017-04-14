@@ -8,10 +8,11 @@
 (__\_|_)\"_____/   |___/    \___|(___/    \___)
 ```
 
-## **iowa** (*v0.7.0*)
+## **iowa** (*v0.7.1*)
 
 * Documentation updates.
 * Added `writeTextFile`, `readTextFile`, `exists`, `directories`, `createIfNotExists`, `stat` as brand new methods.
+* Bugfixes.
 
 ## **iowa** (*v0.6.0*)
 
