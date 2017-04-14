@@ -1,6 +1,6 @@
 {
   "name": "iowa",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "iowa: A Promise-based IO utility; also known as “the land of corn”.",
   "main": "index.js",
   "scripts": {
@@ -30,6 +30,7 @@
     "jsdoc": "^3.4.3"
   },
   "dependencies": {
+    "delgado": "^0.3.0",
     "mkdirp": "^0.5.1"
   }
 }

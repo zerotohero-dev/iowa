@@ -190,6 +190,10 @@ del@^2.0.2:
     pinkie-promise "^2.0.0"
     rimraf "^2.2.8"
 
+delgado@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/delgado/-/delgado-0.3.0.tgz#17d86fde2fa8df960cee6d40628c73413389e6c6"
+
 doctrine@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/doctrine/-/doctrine-2.0.0.tgz#c73d8d2909d22291e1a007a395804da8b665fe63"
