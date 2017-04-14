@@ -50,9 +50,16 @@
 const {
     readFile: readFileFs,
     writeFile: writeFileFs,
-    access,
+    stat: statFs,
+    access, readdir,
     constants: { F_OK }
 } = require( 'fs' );
+
+const { dirname, join } = require( 'path' );
+
+const mkdirp = require( 'mkdirp' );
+
+const { invert } = require( 'delgado' );
 
 const parse = ( response, json = true ) =>
     ( json &amp;&amp; typeof response === 'string' ) ?
@@ -64,8 +71,48 @@ const stringify = ( data, json = true ) => (
 ).trim();
 
 const defaultOptions = { json: true, createIfNotExists: true, encoding: 'utf8', seed: '' };
+const defaultTextFileOptions = { json: false, createIfNotExists: true, encoding: 'utf8', seed: '' };
 
 const NO_ENTRY = 'ENOENT';
+
+/**
+ * @private
+ *
+ * This method is private. It is &lt;strong>not&lt;/strong> exported, and it is &lt;strong>not&lt;/strong>
+ * meant for public use.
+ *
+ * Write to the file at &lt;code>path&lt;/code>, while recursively creating the directory structure if
+ * path to the file does not exist.
+ *
+ * @param {string} path The path to the file.
+ * @param {object} data What to write
+ * @param {object} options Configuration options,
+ *      An example is &lt;code>{ json: true, encoding: 'utf8' }&lt;/code>,
+ *
+ *      where…
+ *
+ *      &lt;ul>
+ *      &lt;li>&lt;code>json&lt;/code> is a `boolean` flag that indicates whether the data is written as
+ *          a stringified &lt;b>JSON&lt;/b> to the file,&lt;/li>
+ *      &lt;li>And &lt;code>encoding&lt;/code> is the output encoding of the file
+ *          (&lt;em>defaults to &lt;code>"utf8"&lt;/code>&lt;/em>).&lt;/li>
+ *      &lt;/ul>
+ * @param {function} onFileWritten The &lt;strong>nodeback&lt;/strong> &lt;code>fn(err, data)&lt;/code> to
+ *      execute when write operation to the file finishes.
+ *
+ * @returns {undefined} Nothing.
+ */
+const writeFileAndCreatePathIfNeeded = ( path, data, options, onFileWritten ) => {
+    mkdirp( dirname( path ), ( err ) => {
+        if ( err ) {
+            onFileWritten( err, null );
+
+            return;
+        }
+
+        writeFileFs( path, data, options, onFileWritten );
+    } );
+};
 
 /**
  * Writes to the given file at &lt;code>path&lt;/code> and returns a &lt;code>Promise&lt;/code> that resolves
@@ -88,12 +135,14 @@ const NO_ENTRY = 'ENOENT';
  *      &lt;/ul>
  *
  * @returns {Promise} a &lt;code>Promise&lt;/code> that resolves with the content of the file.
+ *
+ * @see writeTextFile
  */
 const writeFile = ( path, data, options = defaultOptions ) => new Promise( ( resolve, reject ) => {
     const json = typeof options.json !== 'undefined' ? options.json : defaultOptions.json;
     const encoding = typeof options.encoding !== 'undefined' ? options.encoding : defaultOptions.encoding;
 
-    writeFileFs( path, stringify( data, json ), { encoding }, ( err ) => {
+    writeFileAndCreatePathIfNeeded( path, stringify( data, json ), { encoding }, ( err ) => {
         if ( err ) {
             reject( { error: err, reason: `Unable to write to path: “${path}”.` } );
 
@@ -104,6 +153,46 @@ const writeFile = ( path, data, options = defaultOptions ) => new Promise( ( res
     } );
 } );
 
+/**
+ * Writes a file with an assumption that the `data` passed is a plain UTF-8 text and &lt;strong>not&lt;/strong> JSON.
+ *
+ * @param {string} path The path to file.
+ * @param {object} data What to write.
+ * @param {object} options (Optional) configuration options,
+ *      defaults to &lt;code>{ json: false, encoding: 'utf8' }&lt;/code>,
+ *
+ *      where…
+ *
+ *      &lt;ul>
+ *      &lt;li>&lt;code>json&lt;/code> is a `boolean` flag that indicates whether the data is written as
+ *          a stringified &lt;b>JSON&lt;/b> to the file,&lt;/li>
+ *      &lt;li>And &lt;code>encoding&lt;/code> is the output encoding of the file
+ *          (&lt;em>defaults to &lt;code>"utf8"&lt;/code>&lt;/em>).&lt;/li>
+ *      &lt;/ul>
+ *
+ * @returns {Promise} a &lt;code>Promise&lt;/code> that resolves with the content of the file.
+ *
+ * @see writeFile
+ */
+const writeTextFile = ( path, data, options = defaultTextFileOptions ) => writeFile( path, data, options );
+
+/**
+ * Creates a file if the file does not exist, populating the file with an optional &lt;code>seed&lt;/code> value.
+ *
+ * @param {string} path The path to the file.
+ * @param {object} seed what to put into the file initially.
+ * @param {boolean} json &lt;code>true&lt;/code> if the data we are persisting to the file is meant to be saved as JSON,
+ *      &lt;code>false&lt;/code> otherwise.
+ *
+ * @returns {Promise} a &lt;code>Promise&lt;/code> that resolves with &lt;code>{ existedBefore, created, error, reason }&lt;/code>;
+ *     where…
+ *
+ *     &lt;ul>
+ *     &lt;li>&lt;code>existedBefore&lt;/code> is &lt;code>true&lt;/code> if the file was there before.&lt;/li>
+ *     &lt;li>&lt;code>created&lt;/code> is &lt;code>true&lt;/code> if file was created successfully.&lt;/li>
+ *     &lt;li>&lt;code>error&lt;/code> and &lt;code>reason&lt;/code> are populated if something bad happens.&lt;/li>
+ *     &lt;ul>
+ */
 const createIfNotExists = ( path, seed, json = true ) => new Promise( ( resolve, reject ) => {
     access( path, F_OK, ( err ) => {
         if ( err ) {
@@ -151,6 +240,7 @@ const readBinary = ( path ) => new Promise( ( resolve, reject ) =>
  * Reads the given file at &lt;code>path&lt;/code> and returns a &lt;code>Promise&lt;/code> that resolves with the
  * content of the file.
  *
+ * @param {string} path The path to the file to read.
  * @param {object} options (Optional) configuration options,
  *      defaults to &lt;code>{ json: true, createIfNotExists: true, encoding: 'utf8', seed: '' }&lt;/code>,
  *
@@ -165,6 +255,8 @@ const readBinary = ( path ) => new Promise( ( resolve, reject ) =>
  *      &lt;/ul>
  *
  * @returns {Promise} A &lt;code>Promise&lt;/code> that resolves with the content of the file.
+ *
+ * @see readTextFile
  */
 const readFile = ( path, options = defaultOptions ) => new Promise( ( resolve, reject ) => {
     const seed = typeof options.seed !== 'undefined' ? options.seed : defaultOptions.seed;
@@ -199,6 +291,30 @@ const readFile = ( path, options = defaultOptions ) => new Promise( ( resolve, r
 } );
 
 /**
+ * Reads the given file at &lt;code>path&lt;/code> with an assumption that it is a non-JSON text file
+ * and returns a &lt;code>Promise&lt;/code> that resolves with the content of the file.
+ *
+ * @param {string} path The path to the file to read.
+ * @param {object} options (Optional) configuration options,
+ *      defaults to &lt;code>{ json: false, createIfNotExists: true, encoding: 'utf8', seed: '' }&lt;/code>,
+ *
+ *      where…
+ *
+ *      &lt;ul>
+ *      &lt;li>&lt;code>json&lt;/code> is a flag to parse the file as JSON,&lt;/li>
+ *      &lt;li>&lt;code>createIfNotExists&lt;/code> creates the file, if it does not exists with the provided
+ *          &lt;code>seed&lt;/code> value (&lt;em>the default seed is an empty string&lt;/em>),
+ *      &lt;li>And &lt;code>encoding&lt;/code> is the input encoding of the file
+ *          (&lt;em>defaults to &lt;code>"utf8"&lt;/code>&lt;/em>).&lt;/li>
+ *      &lt;/ul>
+ *
+ * @returns {Promise} A &lt;code>Promise&lt;/code> that resolves with the content of the file.
+ *
+ * @see readFile
+ */
+const readTextFile = ( path, options = defaultTextFileOptions ) => readFile( path, options );
+
+/**
  * Takes a binary &lt;code>Buffer&lt;/code> (&lt;code>data&lt;/code>) and writes it to the given file
  * at &lt;code>path&lt;/code> and then returns a &lt;code>Promise&lt;/code> that resolves with the written data
  * itself.
@@ -221,7 +337,7 @@ const readFile = ( path, options = defaultOptions ) => new Promise( ( resolve, r
  * @returns {Promise} A &lt;code>Promise&lt;/code> that resolves with the content of the file.
  */
 const writeBinary = ( path, data ) => new Promise( ( resolve, reject ) =>
-    writeFileFs( path, data, ( err ) => {
+    writeFileAndCreatePathIfNeeded( path, data, {}, ( err ) => {
         if ( err ) {
             reject( { error: err, reason: `Unable to write to “${path}”.` } );
 
@@ -258,7 +374,120 @@ const missingFiles = ( paths ) => Promise.all(
         .map( ( result ) => result.path )
 );
 
-module.exports = { readFile, writeFile, readBinary, writeBinary, missingFiles };
+/**
+ * @private
+ *
+ * This method is private. It is &lt;strong>not&lt;/strong> exported, and it is &lt;strong>not&lt;/strong>
+ * meant for public use.
+ *
+ * @param {string} filePath Path to the file.
+ *
+ * @returns {boolean} &lt;code>true&lt;/code> if the file is a hidden file; &lt;code>false&lt;/code> otherwise.
+ */
+const hidden = ( filePath ) => filePath[ 0 ] === '.';
+
+/**
+ * Gets the stats of the file and resolves with a &lt;code>Promise&lt;/code> that wraps the stats.
+ *
+ * @param {string} filePath The path to the file.
+ *
+ * @returns {Promise} a &lt;code>Promise&lt;/code> that resolves with &lt;code>{ stats, path }&lt;/code>
+ *     where…
+ *
+ *     &lt;ul>
+ *     &lt;li>&lt;code>stat&lt;/code> is a Node.JS file stat object.&lt;/li>
+ *     &lt;li>&lt;code>path&lt;/code> is the path to the file.&lt;/li>
+ *     &lt;/ul>
+ *
+ * @see exists
+ */
+const stat = ( filePath ) => new Promise( ( resolve, reject ) =>
+    statFs( filePath, ( err, fileStat ) => {
+        if ( err ) {
+            reject( { error: err, reason: `Unable to stat “${filePath}”.` } );
+
+            return;
+        }
+
+        resolve( { stat: fileStat, path: filePath } );
+    } )
+);
+
+/**
+ * Checks whether the file in &lt;code>filePath&lt;/code> exists.
+ *
+ * The &lt;code>Promise&lt;/code> that this function returns &lt;strong>always resolves&lt;/strong>;
+ * it &lt;strong>never&lt;/strong> rejects. — When the file is not found, it will resolve with a
+ * &lt;code>{ exists: false }&lt;/code>.
+ *
+ * @param {string} filePath The path to the file.
+ *
+ * @returns {Promise} a &lt;code>Promise&lt;/code> that resolves with &lt;code>{ exists, path }&lt;/code>, where…
+ *
+ *    &lt;ul>
+ *    &lt;li>&lt;code>exists&lt;/code> is &lt;code>true&lt;/code> if the file exists.&lt;/li>
+ *    &lt;li>&lt;code>path&lt;/code> contains the path to the file.
+ *    &lt;/ul>
+ *
+ * @see stat
+ */
+const exists = ( filePath ) => new Promise( ( resolve ) =>
+    statFs( filePath, ( err, fileStat ) => {
+        if ( err ) {
+            resolve( { exists: false, stat: null, reason: err } );
+
+            return;
+        }
+
+        resolve( { exists: true, stat: fileStat, path: filePath } );
+    } )
+);
+
+/**
+ * Returns a &lt;code>Promise&lt;/code> that resolves witha directory list in the form of &lt;code>[ { directory, path } ]&lt;/code>
+ * given a &lt;code>rootDir&lt;/code>.
+ *
+ * @param {string} rootDir The path to the root directory.
+ *
+ * @returns {Promise} A &lt;code>Promise&lt;/code> taht resolves with an &lt;code>[]&lt;/code> of
+ *     &lt;code>{ stat, path }&lt;/code> objects where…
+ *
+ *     &lt;ul>
+ *     &lt;li>&lt;code>stat&lt;/code> is a Node.JS file stat object.&lt;/li>
+ *     &lt;li>&lt;code>path&lt;/code> is the path to the file.&lt;/li>
+ *     &lt;/ul>
+ */
+const directories = ( rootDir ) => new Promise( ( resolve, reject ) =>
+    readdir( rootDir, ( err, files ) => {
+        if ( err ) {
+            reject( { error: err, reason: `Unable to stat the root directory “${rootDir}”.` } );
+
+            return;
+        }
+
+        resolve(
+            Promise.all(
+                files
+                    .filter( invert( hidden ) )
+                    .map( ( file ) => stat( join( rootDir, file ) ) )
+            ).then( ( stats ) => stats.filter( ( { stat: fileStat } ) => fileStat.isDirectory() ) )
+        );
+    } )
+);
+
+module.exports = {
+    createIfNotExists,
+    directories,
+    exists,
+    missingFiles,
+    readBinary,
+    readFile,
+    readTextFile,
+    stat,
+    writeBinary,
+    writeFile,
+    writeTextFile
+};
 </code></pre>
         </article>
     </section>
@@ -275,7 +504,7 @@ module.exports = { readFile, writeFile, readBinary, writeBinary, missingFiles };
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Mar 30 2017 06:22:17 GMT+0000 (UTC)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Apr 13 2017 21:46:36 GMT-0700 (PDT)
 </footer>
 
 <script> prettyPrint(); </script>
