@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "delgado": "^0.3.0",
+    "iowa": "^0.7.1",
     "mkdirp": "^0.5.1"
   }
 }
