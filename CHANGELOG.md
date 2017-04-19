@@ -10,6 +10,10 @@
 
 ## **iowa** (*v0.7.1*)
 
+* Additional validations; for instance if the user provides and empty, `undefined`, or `null` path; then we reject without even talking to the filesystem API.
+
+## **iowa** (*v0.7.1*)
+
 * Documentation updates.
 * Added `writeTextFile`, `readTextFile`, `exists`, `directories`, `createIfNotExists`, `stat` as brand new methods.
 * Bugfixes.
