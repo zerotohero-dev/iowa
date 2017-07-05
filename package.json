@@ -17,12 +17,25 @@
     "input",
     "fs",
     "wrapper",
-    "promise"
+    "promise",
+    "utility",
+    "helper",
+    "vidcast",
+    "videocast",
+    "videos",
+    "tutorials",
+    "javascript",
+    "education",
+    "learning",
+    "screencast",
+    "bytesized.tv",
+    "byte",
+    "byte-sized"      
   ],
   "bugs": {
     "url": "https://github.com/jsbites/iowa/issues"
   },
-  "homepage": "https://github.com/jsbites/iowa#readme",
+  "homepage": "https://bytesized.tv/",
   "devDependencies": {
     "eslint": "^3.18.0",
     "eslint-config-jsbites": "^0.4.2",
