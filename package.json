@@ -1,6 +1,6 @@
 {
   "name": "iowa",
-  "version": "0.7.3",
+  "version": "0.7.5",
   "description": "iowa: A Promise-based IO utility; also known as “the land of corn”.",
   "main": "index.js",
   "scripts": {
@@ -12,12 +12,23 @@
   "author": "Volkan Özçelik <me@volkan.io> (https://volkan.io/)",
   "license": "MIT",
   "keywords": [
-    "iowa",
-    "io",
-    "input",
+    "byte-sized javascript",
+    "byte-sized",
+    "bytesized.tv",
+    "education",
     "fs",
-    "wrapper",
-    "promise"
+    "input",
+    "io",
+    "iowa",
+    "javascript",
+    "learning",
+    "podcast",
+    "promise",
+    "screencast",
+    "tutorials",
+    "vidcast",
+    "videocast",
+    "wrapper"
   ],
   "bugs": {
     "url": "https://github.com/jsbites/iowa/issues"
