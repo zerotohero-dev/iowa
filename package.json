@@ -1,6 +1,6 @@
 {
   "name": "iowa",
-  "version": "0.7.5",
+  "version": "0.8.0",
   "description": "iowa: A Promise-based IO utility; also known as “the land of corn”.",
   "main": "index.js",
   "scripts": {
@@ -39,14 +39,13 @@
   },
   "homepage": "https://bytesized.tv/",
   "devDependencies": {
-    "eslint": "^3.18.0",
-    "eslint-config-jsbites": "^0.4.2",
-    "http-server": "^0.9.0",
+    "eslint": "^4.1.1",
+    "eslint-config-jsbites": "^0.7.2",
+    "http-server": "^0.10.0",
     "jsdoc": "^3.4.3"
   },
   "dependencies": {
-    "delgado": "^0.3.0",
-    "iowa": "^0.7.1",
+    "delgado": "^0.4.2",
     "mkdirp": "^0.5.1"
   }
 }
