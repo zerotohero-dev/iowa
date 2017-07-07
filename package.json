@@ -12,11 +12,13 @@
   "author": "Volkan Özçelik <me@volkan.io> (https://volkan.io/)",
   "license": "MIT",
   "keywords": [
+    "byte",
     "byte-sized javascript",
     "byte-sized",
     "bytesized.tv",
     "education",
     "fs",
+    "helper",
     "input",
     "io",
     "iowa",
@@ -26,14 +28,16 @@
     "promise",
     "screencast",
     "tutorials",
+    "utility",
     "vidcast",
     "videocast",
+    "videos",
     "wrapper"
   ],
   "bugs": {
     "url": "https://github.com/jsbites/iowa/issues"
   },
-  "homepage": "https://github.com/jsbites/iowa#readme",
+  "homepage": "https://bytesized.tv/",
   "devDependencies": {
     "eslint": "^3.18.0",
     "eslint-config-jsbites": "^0.4.2",
