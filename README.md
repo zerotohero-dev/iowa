@@ -18,28 +18,6 @@
 
 `iowa` is a library that exposes IO utility methods that return a `Promise` API; it is also known as “the land of corn”.
 
-## About This Repository
-
-This repository is a part of the [Byte-Sized JavaScript VideoCasts][vidcast].
-
-```
-  _               __
- |_)   _|_  _ __ (_  o _   _   _|
- |_) \/ |_ (/_   __) | /_ (/__(_|
-     /        |  _.     _. (_   _ ._ o ._ _|_
-            \_| (_| \/ (_| __) (_ |  | |_) |_
-                                       |
-            »»  bytesized.tv  ««
-```
-
-## Byte-Sized What?!
-
-[Byte-Sized JavaScript][vidcast].
-
-It is a compilation of short (*around ten minutes*) monthly screencasts about **JavaScript** and related technologies.
-
-[vidcast]: https://bytesized.tv/ "ByteSized.TV"
-
 ## About **iowa**
 
 `iowa` is a library that exposes IO utility methods that return a `Prmomise` API.
@@ -142,3 +120,12 @@ MIT-licensed. — [See the license file for details](LICENSE.md).
 We are committed to making participation in this project a harassment-free experience for everyone, regardless of the level of experience, gender, gender identity and expression, sexual orientation, disability, personal appearance, body size, race, ethnicity, age, religion, or nationality.
 
 [See the code of conduct for details](CODE_OF_CONDUCT.md).
+
+## A [ByteSized.TV][vidcast] Project
+
+This repository is a part of the [Byte-Sized JavaScript VideoCasts][vidcast].
+
+It is a compilation of short (*around ten minutes*) screencasts about **JavaScript** and related technologies.
+
+[**Learn**, **explore**, and **have fun**][vidcast]!
+
