@@ -1,10 +1,17 @@
 [![tests][tests]][tests-url]
 [![deps][deps]][deps-url]
+[![npm][npm]][npm-url]
+[![license][license]][license-url]
+
 
 [tests]: https://img.shields.io/travis/jsbites/iowa.svg
 [tests-url]: https://travis-ci.org/jsbites/iowa
 [deps]: https://david-dm.org/jsbites/iowa.svg
 [deps-url]: https://david-dm.org/jsbites/iowa
+[npm-url]: https://www.npmjs.com/package/iowa
+[npm]: https://img.shields.io/npm/v/iowa.svg
+[license]: https://img.shields.io/npm/l/iowa.svg
+[license-url]: https://www.npmjs.com/package/iowa
 
 ```
   __      ______    __   __  ___       __
